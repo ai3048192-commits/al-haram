@@ -10,7 +10,7 @@ export default function Home() {
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   
   const [userAnswers, setUserAnswers] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(6);
+  const [timeLeft, setTimeLeft] = useState(20);
   const [attemptsLeft, setAttemptsLeft] = useState(1);
   const [isGameActive, setIsGameActive] = useState(false);
   const [shuffledOptions, setShuffledOptions] = useState([]);
@@ -98,7 +98,7 @@ export default function Home() {
   const nextQuestionOrFinish = () => {
     setFeedback(null);
     setSelectedOption(null);
-    setTimeLeft(6);
+    setTimeLeft(20);
     setAttemptsLeft(1);
 
     const questionsList = activeGame === "handwashGame" ? handwashQuestions : isolationQuestions;
@@ -136,7 +136,7 @@ export default function Home() {
     setCurrentScreen(gameType);
     setCurrentIndex(0);
     setScore(0);
-    setTimeLeft(6);
+    setTimeLeft(20);
     setAttemptsLeft(1);
     setUserAnswers([]);
     setIsGameActive(true);
@@ -156,14 +156,11 @@ export default function Home() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0c051a] via-[#120720] to-[#1e0a2f] p-2 sm:p-4" dir="rtl">
       
-      {/* إطار الموبايل (مضبوط بمرونة للمقاسات المختلفة) */}
       <div className="w-full max-w-[390px] h-[850px] max-h-[95vh] bg-gradient-to-b from-[#150824] via-[#10041a] to-[#0a0212] rounded-[36px] sm:rounded-[48px] border-[3px] border-purple-500/40 flex flex-col justify-between overflow-hidden shadow-[0_0_50px_rgba(234,88,12,0.15),0_0_80px_rgba(147,51,235,0.2)] relative">
         
-        {/* إضاءات خلفية */}
         <div className="absolute -top-16 -right-16 w-56 h-56 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-orange-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
-        {/* ترويسة علوية */}
         <div className="pt-4 pb-2.5 px-4 sm:px-6 bg-gradient-to-r from-[#1b0a30] via-[#220c3d] to-[#1b0a30] border-b border-purple-500/20 relative z-20 flex items-center justify-between shadow-lg">
           <div className="flex items-center space-x-2.5 space-x-reverse">
             <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-orange-500 to-purple-600 flex items-center justify-center shadow-lg shadow-orange-500/20 border border-orange-400/30 text-sm">
@@ -179,10 +176,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* محتوى الشاشات */}
         <div className="flex-1 overflow-y-auto px-4 py-3 sm:p-5 flex flex-col justify-between relative z-10">
 
-          {/* الشاشة الرئيسية */}
           {currentScreen === "home" && (
             <div className="w-full flex flex-col items-center justify-center flex-1 space-y-5 my-auto">
               <div className="text-center space-y-2.5">
@@ -241,7 +236,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* مقدمة غسيل الأيدي */}
           {currentScreen === "handwashIntro" && (
             <div className="w-full flex flex-col justify-between flex-1 py-2">
               <div className="w-full flex justify-start">
@@ -260,7 +254,6 @@ export default function Home() {
                   اختبر معلوماتك في تحديد اللحظات الخمس الدقيقة لغسيل الأيدي طبقاً لمعايير مكافحة العدوى.
                 </p>
               </div>
-              {/* تم رفع الأزرار للأعلى قليلاً وإضافة مسافة آمنة بالأسفل */}
               <div className="w-full space-y-2 pb-3">
                 <button 
                   onClick={() => startGameDirectly("handwashGame")}
@@ -278,7 +271,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* شاشة أسئلة غسيل الأيدي */}
           {currentScreen === "handwashGame" && (
             <div className="w-full flex flex-col justify-between flex-1 py-1 pb-2">
               <div className="w-full flex justify-between items-center mb-1">
@@ -286,7 +278,7 @@ export default function Home() {
                   ⬅️ رجوع
                 </button>
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs font-black px-2.5 py-1 rounded-xl border ${timeLeft <= 2 ? 'bg-red-500/20 text-red-400 border-red-500/40 animate-pulse' : 'bg-purple-900/60 text-purple-200 border-purple-500/30'}`}>
+                  <span className={`text-xs font-black px-2.5 py-1 rounded-xl border ${timeLeft <= 3 ? 'bg-red-500/20 text-red-400 border-red-500/40 animate-pulse' : 'bg-purple-900/60 text-purple-200 border-purple-500/30'}`}>
                     ⏱️ {timeLeft}ث
                   </span>
                   <div className="text-xs font-black bg-gradient-to-r from-orange-500/20 to-purple-600/20 border border-orange-500/40 text-orange-300 px-3 py-1.5 rounded-2xl">
@@ -316,7 +308,6 @@ export default function Home() {
                 </div>
               )}
 
-              {/* تم رفع الخيارات قليلاً وزيادة الترتيب المضغوط للموبايل */}
               <div className="space-y-1.5 w-full my-1 pb-2">
                 {shuffledOptions.map((opt) => (
                   <button
@@ -338,7 +329,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* مقدمة أنواع العزل */}
           {currentScreen === "isolationIntro" && (
             <div className="w-full flex flex-col justify-between flex-1 py-2">
               <div className="w-full flex justify-start">
@@ -357,7 +347,6 @@ export default function Home() {
                   حدد بدقة نوع العزل الاحترافي (عزل تلامس، عزل رذاذ، عزل هواء) المناسب للحالات المرضية المختلفة.
                 </p>
               </div>
-              {/* تم رفع الأزرار للأعلى قليلاً */}
               <div className="w-full space-y-2 pb-3">
                 <button 
                   onClick={() => startGameDirectly("isolationGame")}
@@ -375,7 +364,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* شاشة أسئلة أنواع العزل */}
           {currentScreen === "isolationGame" && (
             <div className="w-full flex flex-col justify-between flex-1 py-1 pb-2 relative">
               <div className="w-full flex justify-between items-center mb-1 z-20">
@@ -383,7 +371,7 @@ export default function Home() {
                   ⬅️ رجوع
                 </button>
                 <div className="flex items-center gap-2">
-                  <span className={`text-xs font-black px-2.5 py-1 rounded-xl border ${timeLeft <= 2 ? 'bg-red-500/20 text-red-400 border-red-500/40 animate-pulse' : 'bg-purple-950/80 text-orange-200 border-purple-500/40'}`}>
+                  <span className={`text-xs font-black px-2.5 py-1 rounded-xl border ${timeLeft <= 3 ? 'bg-red-500/20 text-red-400 border-red-500/40 animate-pulse' : 'bg-purple-950/80 text-orange-200 border-purple-500/40'}`}>
                     ⏱️ {timeLeft}ث
                   </span>
                   <div className="text-xs font-black bg-gradient-to-r from-orange-500/20 to-purple-600/20 text-orange-300 px-3 py-1.5 rounded-2xl border border-orange-500/40 shadow">
@@ -414,7 +402,6 @@ export default function Home() {
                 </div>
               )}
 
-              {/* تم ضبط مساحات الأزرار الدائرية وإحداثياتها لكي تتناسب مع الشاشات الصغيرة دون تداخل */}
               <div className="flex-1 bg-gradient-to-b from-[#180829] via-[#120520] to-[#0a0214] rounded-3xl border border-purple-500/30 relative overflow-hidden p-2.5 shadow-inner my-1">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(234,88,12,0.08)_0%,transparent_70%)] pointer-events-none"></div>
                 
@@ -445,7 +432,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* شاشة النتائج والمراجعة */}
           {currentScreen === "results" && (() => {
             const correctCount = userAnswers.filter(item => item.isCorrect).length;
             const incorrectCount = userAnswers.length - correctCount;
@@ -501,7 +487,6 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* تم رفع الأزرار للأعلى قليلاً لتجنب الخروج عن إطار الموبايل */}
                 <div className="space-y-2 mt-1 pb-2">
                   <button 
                     onClick={() => startGameDirectly(activeGame)}
@@ -522,7 +507,6 @@ export default function Home() {
 
         </div>
 
-        {/* نافذة "ازاي نلعب؟" المنبثقة */}
         {showHowToPlay && (
           <div className="absolute inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-3 animate-in fade-in duration-200">
             <div className="bg-gradient-to-b from-[#240c42] via-[#160628] to-[#10031a] border border-purple-500/40 p-4 sm:p-5 rounded-[32px] shadow-[0_0_50px_rgba(147,51,235,0.3)] max-w-[340px] w-full text-right space-y-3 relative">
@@ -542,7 +526,7 @@ export default function Home() {
               <div className="space-y-2 text-[11px] text-purple-100">
                 <div className="bg-gradient-to-r from-[#2c104e]/80 to-[#1f0938]/80 p-2.5 rounded-2xl border border-purple-500/20 flex items-center justify-between shadow-inner">
                   <span className="text-[11px] text-purple-200 font-medium text-right leading-tight flex-1 ml-2">
-                    هتظهرلك حالة واقعية — اختر الإجراء الصح قبل ما الوقت (<span className="text-orange-400 font-bold">6 ثوانٍ</span>) يخلص!
+                    هتظهرلك حالة واقعية — اختر الإجراء الصح قبل ما الوقت (<span className="text-orange-400 font-bold">20 ثانية</span>) يخلص!
                   </span>
                   <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-orange-500 to-purple-600 flex items-center justify-center shrink-0 shadow border border-orange-400/30 text-xs">
                     🩺
